@@ -167,7 +167,7 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
                     window.parent.buildTetris()
                     break;
                     default:
-                    output('\'' + cmd + '\' was not found on this system.');
+                    output('\'' + applicationsv + '\' was not found on this system.');
                     output('Available apps are: settings, tetris.');
             }
             break;
