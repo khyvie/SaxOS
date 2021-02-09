@@ -248,7 +248,7 @@ iframe {outline: none; margin:0px; border:0;}
 body {
   margin:0px;
   font-family:"Open Sans",sans-serif;
-  background-image: url('./saxosbg2.jpg');
+  background-image: url('./dark-bg.jpg');
   background-repeat: no-repeat;
   background-size:1920px 1080px;
   height: 100%; 
@@ -257,7 +257,7 @@ body {
 }
 /* May be borked for now but not when saxos release */
 * {
-  cursor: url('saxoscursor2.gif'), default;
+  cursor: url('dark-cursor.gif'), default;
   z-index: -0;
     }
 
