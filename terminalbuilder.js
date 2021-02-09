@@ -119,7 +119,9 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
           output(echoargs);
           break;
         case 'help':
-          output('<br><div class="ls-files">' + CMDS_.join('<br>') + '</div>');
+        case 'cmds':
+        case '?':
+          output('<br><div class="ls-files">' + CMDS_.join('<br>') + '</div>', "q10dlk20");
           break;
         case 'clear':
         case 'newsession':
@@ -138,7 +140,7 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
           break;
           case 'sysinfo':
           var OSName = "Unknown";
-          var saxosversion = "openalpha1"
+          var saxosversion = "10.8dev"
           if (window.navigator.userAgent.indexOf("Windows NT 10.0")!= -1)  OSName="Windows 10";
           if (window.navigator.userAgent.indexOf("Windows NT 6.2") != -1)  OSName="Windows 8";
           if (window.navigator.userAgent.indexOf("Windows NT 6.1") != -1)  OSName="Windows 7";
@@ -150,32 +152,32 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
           if (window.navigator.userAgent.indexOf("Linux")          != -1)  OSName="Linux";
           output(`Host operating system: ${OSName}`)
           output(`OS Version: SaxOS version ${saxosversion}`)
-          break;
-        case 'open':
-        case 'launch':
-        case 'runapp':
-          var applicationsv = args.join(' ');
-          switch(applicationsv){
-            case 'settings':
-              output('Opening settings.');
-              window.parent.buildSettings()
-              break;
-                case 'tetris':
-                  output('Opening tetris.');
-                  window.parent.buildTetris()
-                  break;
-                  default:
-                  output('\'' + cmd + '\' was not found on this system.');
-                  output('Available apps are: settings, tetris.');
-          }
-          break;
-          case 'exit':
-            window.parent.delTerminal()
             break;
-      default:
-        if (cmd) {
-          output('\'' + cmd + '\' is not a valid command or is not available.');
-        }
+          case 'open':
+          case 'launch':
+          case 'runapp':
+            var applicationsv = args.join(' ');
+            switch(applicationsv){
+              case 'settings':
+                output('Opening settings.');
+                window.parent.buildSettings()
+                break;
+                  case 'tetris':
+                    output('Opening tetris.');
+                    window.parent.buildTetris()
+                    break;
+                    default:
+                    output('\'' + cmd + '\' was not found on this system.');
+                    output('Available apps are: settings, tetris.');
+            }
+            break;
+            case 'exit':
+              window.parent.delTerminal()
+              break;
+        default:
+          if (cmd) {
+            output('\'' + cmd + '\' is not a valid command or is not available.');
+          }
       };
 
       window.scrollTo(0, getDocHeight_());
