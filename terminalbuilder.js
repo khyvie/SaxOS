@@ -5,15 +5,6 @@ var d2 = null;
 do { d2 = new Date(); }
 while(d2-d < ms);
 }
-function tetris() {
-    var nativewindow = document.getElementById("flapbird");
-    nativewindow.style.display = 'block';
-    document.getElementById('tetrisgame').contentWindow.location.replace("./tetris.html")
-}
-function settings(){
-    var nativewindow = document.getElementById("mydiv");
-    nativewindow.style.display = 'block';
-}
 var util = util || {};
 util.toArray = function(list) {
   return Array.prototype.slice.call(list || [], 0);
@@ -26,7 +17,7 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
   var output_ = document.querySelector(outputContainer);
 
   const CMDS_ = [
-    'getdatafromurl', 'date', 'echo', 'help', 'clear/newsession', 'sysinfo'
+    'getdatafromurl', 'date', 'echo', 'help', 'clear/newsession', 'sysinfo', 'open', 'exit'
   ];
 
   var fs_ = null;
@@ -83,15 +74,12 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
 
     if (e.keyCode == 9) { // tab
       e.preventDefault();
-      // Implement tab suggest.
     } else if (e.keyCode == 13) { // enter
-      // Save shell history.
       if (this.value) {
         history_[history_.length] = this.value;
         histpos_ = history_.length;
       }
 
-      // Duplicate current input and append to output section.
       var line = this.parentNode.parentNode.cloneNode(true);
       line.removeAttribute('id')
       line.classList.add('line');
@@ -105,7 +93,7 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
           return val;
         });
         var cmd = args[0].toLowerCase();
-        args = args.splice(1); // Remove cmd from arg list.
+        args = args.splice(1);
       }
 
       switch (cmd) {
@@ -161,12 +149,33 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
           if (window.navigator.userAgent.indexOf("X11")            != -1)  OSName="UNIX";
           if (window.navigator.userAgent.indexOf("Linux")          != -1)  OSName="Linux";
           output(`Host operating system: ${OSName}`)
-          output(`OS Version: SaxOS-V${saxosversion}`)
-            break;
-        default:
-          if (cmd) {
-            output('\'' + cmd + '\' is not a valid command or is not available.');
+          output(`OS Version: SaxOS version ${saxosversion}`)
+          break;
+        case 'open':
+        case 'launch':
+        case 'runapp':
+          var applicationsv = args.join(' ');
+          switch(applicationsv){
+            case 'settings':
+              output('Opening settings.');
+              window.parent.buildSettings()
+              break;
+                case 'tetris':
+                  output('Opening tetris.');
+                  window.parent.buildTetris()
+                  break;
+                  default:
+                  output('\'' + cmd + '\' was not found on this system.');
+                  output('Available apps are: settings, tetris.');
           }
+          break;
+          case 'exit':
+            window.parent.delTerminal()
+            break;
+      default:
+        if (cmd) {
+          output('\'' + cmd + '\' is not a valid command or is not available.');
+        }
       };
 
       window.scrollTo(0, getDocHeight_());
@@ -186,19 +195,20 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
     var height = entries.length <= 3 ?
         'height: ' + (entries.length * 15) + 'px;' : '';
 
-    // 12px monospace font yields ~7px screen width.
     var colWidth = maxName.length * 7;
 
     return ['<div class="ls-files" style="-webkit-column-width:',
             colWidth, 'px;', height, '">'];
   }
 
-  //
-  function output(html) {
-    output_.insertAdjacentHTML('beforeEnd', '<div>' + html + '</div>');
+  function output(html, key) {
+    if(key !== "q10dlk20"){
+    output_.insertAdjacentText('beforeEnd', html);
+    } else{
+      output_.insertAdjacentHTML('beforeEnd', '<div>' + html + '</div>');
+    }
   }
 
-  // Cross-browser impl to get document's height.
   function getDocHeight_() {
     var d = document;
     return Math.max(
@@ -208,10 +218,9 @@ var Terminal = Terminal || function(cmdLineContainer, outputContainer) {
     );
   }
 
-  //
   return {
     init: function() {
-      output('<style>.noselect{-webkit-touch-callout: none;  -webkit-user-select: none;  -khtml-user-select: none;   -moz-user-select: none;   -ms-user-select: none; user-select: none;}</style> <img class="noselect" align="left" src="./Cool%20Text%20-%20SAXOS%20359333606253121.png" style="padding: 0px 10px 20px 0px"><h2 class="noselect" style="letter-spacing: 4px">SaxOS Terminal V2.0</h2><p class="line">' + '</p><p class="noselect">For a list of help commands input "help" in the command line.</p>');
+      output('<style>.noselect{-webkit-touch-callout: none;  -webkit-user-select: none;  -khtml-user-select: none;   -moz-user-select: none;   -ms-user-select: none; user-select: none;}</style> <img class="noselect" align="left" src="./Cool%20Text%20-%20SAXOS%20359333606253121.png" style="padding: 0px 10px 20px 0px"><h2 class="noselect" style="letter-spacing: 4px">SaxOS Terminal V2.0</h2><p class="line">' + '</p><p class="noselect">For a list of help commands input "help" in the command line.</p>', "q10dlk20");
     },
     output: output
   }
