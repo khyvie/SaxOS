@@ -174,11 +174,16 @@ z-index: 1;
 
 ::-webkit-scrollbar {
   width: 5px;
-}
+  height:5px;
+  }
 
 ::-webkit-scrollbar-track {
-  box-shadow: 0 0 5px grey; 
   background-color: whitesmoke;
+  border-radius: 111px;
+}
+::-webkit-scrollbar-thumb {
+  box-shadow: 0 0 5px grey; 
+  background-color: grey;
   border-radius: 111px;
 }
 
