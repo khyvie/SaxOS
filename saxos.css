@@ -139,6 +139,20 @@
     bottom: -5px;
     transition: bottom 1000ms ease-in-out;
   }
+.taskbaractivate{
+position: absolute; 
+left:50%; 
+bottom: -115px; 
+width: 195px; 
+height: 10px; 
+border-bottom-right-radius: 10px;
+border-top-right-radius: 10px; 
+border-bottom-left-radius: 10px; 
+border-top-left-radius: 10px; 
+transform: translate(-50%, -125px); 
+background-color: white; 
+z-index: 1;
+}
   .unselectable {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
