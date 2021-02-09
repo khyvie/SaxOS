@@ -180,6 +180,11 @@ z-index: 1;
   box-shadow: 0 0 5px grey; 
   border-radius: 111px;
 }
+
+::-webkit-scrollbar-thumb {
+  color: rgba(255,255,255, 0.80);
+}
+
 /* Window frames */
 .window {
   position: absolute;
