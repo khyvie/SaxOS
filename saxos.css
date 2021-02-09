@@ -178,11 +178,8 @@ z-index: 1;
 
 ::-webkit-scrollbar-track {
   box-shadow: 0 0 5px grey; 
+  background-color: whitesmoke;
   border-radius: 111px;
-}
-
-::-webkit-scrollbar-thumb {
-  color: rgba(255,255,255, 0.80);
 }
 
 /* Window frames */
