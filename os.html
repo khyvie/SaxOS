@@ -67,10 +67,10 @@ taskbar.ondblclick = function(){
 }
 // Connectivity check script
 function checkInternet() {
-  require('dns').lookupService('8.8.8.8', 53, function(err, hostname, service){
+  /*require('dns').lookupService('8.8.8.8', 53, function(err, hostname, service){
   if(err){
     document.getElementById("internet").innerHTML = "❌";
-  } else{document.getElementById("internet").innerHTML = "🖧";}
+  } else{document.getElementById("internet").innerHTML = "🖧";}*/
 });
 }
 setInterval(function(){
